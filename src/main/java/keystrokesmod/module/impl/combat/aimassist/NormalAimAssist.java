@@ -17,6 +17,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,8 +25,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class NormalAimAssist extends SubMode<AimAssist> {
-    private final ButtonSetting clickAim, aimWhileOnTarget, strafeIncrease, checkBlockBreak, aimVertically, weaponOnly, ignoreTeammates, throughBlock;
-    private final SliderSetting verticalSpeed, horizontalSpeed, maxAngle, distance;
+    private final ButtonSetting clickAim, aimWhileOnTarget, strafeIncrease, checkBlockBreak, aimVertically, weaponOnly, ignoreTeammates, throughBlock, preventSameYawPitch;
+    private final SliderSetting verticalSpeedMin, verticalSpeedMax, horizontalSpeedMin, horizontalSpeedMax, maxAngle, distance;
     private Double yawNoise = null;
     private Double pitchNoise = null;
     private long nextNoiseRefreshTime = -1;
@@ -38,13 +39,17 @@ public class NormalAimAssist extends SubMode<AimAssist> {
         this.registerSetting(strafeIncrease = new ButtonSetting("Strafe increase", false));
         this.registerSetting(checkBlockBreak = new ButtonSetting("Check block break", true));
         this.registerSetting(aimVertically = new ButtonSetting("Aim vertically", false));
-        this.registerSetting(verticalSpeed = new SliderSetting("Vertical speed", 5, 1, 20, 0.1, aimVertically::isToggled));
-        this.registerSetting(horizontalSpeed = new SliderSetting("Horizontal speed", 5, 1, 20, 0.1));
+        this.registerSetting(verticalSpeedMin = new SliderSetting("Vertical speed (Min)", 5.5, 1, 20, 0.1, aimVertically::isToggled));
+        this.registerSetting(verticalSpeedMax = new SliderSetting("Vertical speed (Max)", 7.5, 1, 20, 0.1, aimVertically::isToggled));
+        this.registerSetting(horizontalSpeedMin = new SliderSetting("Horizontal speed (Min)", 5.5, 1, 20, 0.1));
+        this.registerSetting(horizontalSpeedMax = new SliderSetting("Horizontal speed (Max)", 7.5, 1, 20, 0.1));
         this.registerSetting(maxAngle = new SliderSetting("Max angle", 180, 1, 360, 5));
         this.registerSetting(distance = new SliderSetting("Distance", 5, 1, 8, 0.1));
         this.registerSetting(weaponOnly = new ButtonSetting("Weapon only", false));
         this.registerSetting(ignoreTeammates = new ButtonSetting("Ignore teammates", false));
         this.registerSetting(throughBlock = new ButtonSetting("Through block", true));
+
+        this.registerSetting(preventSameYawPitch = new ButtonSetting("Prevent Same Yaw/Pitch", true));
     }
 
     @Contract("_, _ -> new")
@@ -90,8 +95,17 @@ public class NormalAimAssist extends SubMode<AimAssist> {
         double deltaYaw = yawNoise;
         double deltaPitch = pitchNoise;
 
-        double hSpeed = horizontalSpeed.getInput();
-        double vSpeed = verticalSpeed.getInput();
+        double hSpeed = RandomUtils.nextDouble(horizontalSpeedMin.getInput(), horizontalSpeedMax.getInput());
+        double vSpeed = RandomUtils.nextDouble(verticalSpeedMin.getInput(), verticalSpeedMax.getInput());
+
+        if (aimVertically.isToggled() && preventSameYawPitch.isToggled()) {
+            int iterations = 0;
+            while (Math.abs(hSpeed - vSpeed) <= 0.1 && iterations <= 5) {
+                hSpeed = RandomUtils.nextDouble(horizontalSpeedMin.getInput(), horizontalSpeedMax.getInput());
+                vSpeed = RandomUtils.nextDouble(verticalSpeedMin.getInput(), verticalSpeedMax.getInput());
+                iterations++;
+            }
+        }
 
 
         if (onTarget) {
