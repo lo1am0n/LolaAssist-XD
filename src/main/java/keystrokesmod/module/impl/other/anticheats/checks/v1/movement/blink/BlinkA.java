@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.blink;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class BlinkA extends Check {
     
     public BlinkA(@NotNull TRPlayer player) {
-        super("BlinkA", player);
+        super("Blink (A)", player);
     }
 
     @Override

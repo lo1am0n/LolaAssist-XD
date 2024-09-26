@@ -39,6 +39,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.input.Mouse;
@@ -187,8 +188,19 @@ public class KillAura extends IAutoClicker {
         this.registerSetting(dotSize = new SliderSetting("Dot size", 0.1, 0.05, 0.2, 0.05, dot::isToggled));
     }
 
+    private int hypixelAttackTicks = 0;
+    private int hypixelAutoBlockTicks = 0;
+    private int hypixelReblockTicks = 0;
+    private boolean hypixelBlocked = false;
+
     public void onEnable() {
         clickMode.enable();
+
+        hypixelAttackTicks = 0;
+        hypixelAutoBlockTicks = 0;
+        hypixelReblockTicks = 0;
+        hypixelBlocked = false;
+
         this.rotations = new float[]{mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch};
     }
 
@@ -243,29 +255,53 @@ public class KillAura extends IAutoClicker {
         }
     }
 
+    private Vec3 storedHitPos = null;
+
     @SubscribeEvent
     public void onRenderWorldLast(RenderWorldLastEvent event) {
         Vec3 hitPos = aimSimulator.getHitPos();
         if (target != null) {
             if (rotations != null && dot.isToggled() && hitPos != null) {
+                storedHitPos = hitPos;
                 if (animationX == null || animationY == null || animationZ == null) {
                     animationX = new Animation(Easing.EASE_OUT_CIRC, 50);
                     animationY = new Animation(Easing.EASE_OUT_CIRC, 50);
                     animationZ = new Animation(Easing.EASE_OUT_CIRC, 50);
 
-                    animationX.setValue(hitPos.x);
-                    animationY.setValue(hitPos.y);
-                    animationZ.setValue(hitPos.z);
+                    animationX.setValue(storedHitPos.x);
+                    animationY.setValue(storedHitPos.y);
+                    animationZ.setValue(storedHitPos.z);
                 }
-                animationX.run(hitPos.x);
-                animationY.run(hitPos.y);
-                animationZ.run(hitPos.z);
+                animationX.run(storedHitPos.x);
+                animationY.run(storedHitPos.y);
+                animationZ.run(storedHitPos.z);
                 RenderUtils.drawDot(new Vec3(animationX.getValue(), animationY.getValue(), animationZ.getValue()), dotSize.getInput(), 0xFF0670BE);
             }
         } else {
-            animationX = animationY = animationZ = null;
+            if (storedHitPos != null && dot.isToggled()) {
+                if (animationX == null || animationY == null || animationZ == null) {
+                    animationX = new Animation(Easing.EASE_OUT_CIRC, 50);
+                    animationY = new Animation(Easing.EASE_OUT_CIRC, 50);
+                    animationZ = new Animation(Easing.EASE_OUT_CIRC, 50);
+
+                    animationX.setValue(storedHitPos.x);
+                    animationY.setValue(storedHitPos.y);
+                    animationZ.setValue(storedHitPos.z);
+                }
+                animationX.run(storedHitPos.x);
+                animationY.run(storedHitPos.y);
+                animationZ.run(storedHitPos.z);
+                RenderUtils.drawDot(new Vec3(animationX.getValue(), animationY.getValue(), animationZ.getValue()), dotSize.getInput(), 0xFF0670BE);
+            }
+            else {
+                animationX = animationY = animationZ = null;
+            }
+
         }
     }
+
+    private int selectedHypixelTick = 5;
+    private int selectedHypixelTick2 = 2;
 
     @SubscribeEvent
     public void onPreUpdate(PreUpdateEvent e) {
@@ -274,7 +310,8 @@ public class KillAura extends IAutoClicker {
             return;
         }
 
-        block();
+            block();
+
 
         if (ModuleManager.bedAura != null && ModuleManager.bedAura.isEnabled() && !ModuleManager.bedAura.allowAura.isToggled() && ModuleManager.bedAura.currentBlock != null) {
             resetBlinkState(true);
@@ -289,6 +326,7 @@ public class KillAura extends IAutoClicker {
             resetBlinkState(true);
             return;
         }
+
         boolean swingWhileBlocking = !silentSwing.isToggled() || !block.get();
         if (swing && attack && HitSelect.canSwing()) {
             if (swingWhileBlocking) {
@@ -372,7 +410,9 @@ public class KillAura extends IAutoClicker {
                 return;
             }
             switchTargets = true;
-            Utils.attackEntity(target, swingWhileBlocking);
+
+                Utils.attackEntity(target, swingWhileBlocking);
+
         }
     }
 

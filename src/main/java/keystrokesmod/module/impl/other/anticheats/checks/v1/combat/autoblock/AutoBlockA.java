@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.combat.autoblock;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -6,25 +6,25 @@ import keystrokesmod.module.impl.other.anticheats.TRPlayer;
 import keystrokesmod.module.impl.other.anticheats.config.AdvancedConfig;
 import org.jetbrains.annotations.NotNull;
 
-public class SpeedB extends Check {
-    public SpeedB(@NotNull TRPlayer player) {
-        super("SpeedB", player);
+public class AutoBlockA extends Check {
+    public AutoBlockA(@NotNull TRPlayer player) {
+        super("Auto Block (A)", player);
     }
 
     @Override
     public void _onTick() {
-        if (player.fabricPlayer.isSprinting() && player.fabricPlayer.getFoodStats().getFoodLevel() <= 6) {
-            flag();
+        if (player.fabricPlayer.isBlocking() && !player.lastSwing && player.currentSwing) {
+            flag("impossible hit.");
         }
     }
 
     @Override
     public int getAlertBuffer() {
-        return AdvancedConfig.speedBAlertBuffer;
+        return AdvancedConfig.autoBlockAAlertBuffer;
     }
 
     @Override
     public boolean isDisabled() {
-        return !Anticheat.getMovementCheck().isToggled();
+        return !Anticheat.getCombatCheck().isToggled();
     }
 }

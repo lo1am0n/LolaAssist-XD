@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.strafe;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;

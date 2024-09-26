@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.flight;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -15,10 +15,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlyB extends Check {
+public class FlightB extends Check {
     public static final List<Block> IGNORED_BLOCKS = new ArrayList<>();
-    public FlyB(@NotNull TRPlayer player) {
-        super("FlyB", player);
+    public FlightB(@NotNull TRPlayer player) {
+        super("Flight (B)", player);
         IGNORED_BLOCKS.add(Blocks.web);
         IGNORED_BLOCKS.add(Blocks.water);
         IGNORED_BLOCKS.add(Blocks.lava);

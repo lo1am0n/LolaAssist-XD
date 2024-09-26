@@ -1,6 +1,5 @@
-package keystrokesmod.module.impl.other.anticheats.checks.aim;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.combat.aimassist;
 
-import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
 import keystrokesmod.module.impl.other.anticheats.TRPlayer;
 import keystrokesmod.module.impl.other.anticheats.config.AdvancedConfig;
@@ -16,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AimA extends Check {
-    public AimA(@NotNull TRPlayer player) {
-        super("AimA", player);
+public class AimAssistA extends Check {
+    public AimAssistA(@NotNull TRPlayer player) {
+        super("Aim Assist (A)", player);
     }
 
     @Override
@@ -78,6 +77,6 @@ public class AimA extends Check {
 
     @Override
     public boolean isDisabled() {
-        return !Anticheat.getAimCheck().isToggled() || !Anticheat.getExperimentalMode().isToggled();
+        return false;
     }
 }

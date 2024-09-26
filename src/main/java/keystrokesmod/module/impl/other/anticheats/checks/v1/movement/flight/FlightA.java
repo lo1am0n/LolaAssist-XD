@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.flight;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -7,9 +7,9 @@ import keystrokesmod.module.impl.other.anticheats.config.AdvancedConfig;
 import keystrokesmod.module.impl.other.anticheats.utils.world.PlayerMove;
 import org.jetbrains.annotations.NotNull;
 
-public class FlyA extends Check {
-    public FlyA(@NotNull TRPlayer player) {
-        super("FlyA", player);
+public class FlightA extends Check {
+    public FlightA(@NotNull TRPlayer player) {
+        super("Flight (A)", player);
     }
 
     @Override

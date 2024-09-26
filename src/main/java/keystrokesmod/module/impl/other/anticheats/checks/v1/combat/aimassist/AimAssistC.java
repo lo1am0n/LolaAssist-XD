@@ -1,7 +1,6 @@
-package keystrokesmod.module.impl.other.anticheats.checks.aim;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.combat.aimassist;
 
 import keystrokesmod.event.PreMotionEvent;
-import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
 import keystrokesmod.module.impl.other.anticheats.TRPlayer;
 import keystrokesmod.module.impl.other.anticheats.config.AdvancedConfig;
@@ -15,10 +14,10 @@ import java.util.Set;
  * @see Scaffold#getYaw()
  * @see Scaffold#onPreMotion(PreMotionEvent)
  */
-public class AimC extends Check {
+public class AimAssistC extends Check {
     private static final Set<Float> SCAFFOLD_YAW = new HashSet<>();
-    public AimC(@NotNull TRPlayer player) {
-        super("AimC", player);
+    public AimAssistC(@NotNull TRPlayer player) {
+        super("Aim Assist (C)", player);
         SCAFFOLD_YAW.add(180f);
         SCAFFOLD_YAW.add(90f);
         SCAFFOLD_YAW.add(-90f);
@@ -60,6 +59,6 @@ public class AimC extends Check {
 
     @Override
     public boolean isDisabled() {
-        return !Anticheat.getAimCheck().isToggled();
+        return false;
     }
 }

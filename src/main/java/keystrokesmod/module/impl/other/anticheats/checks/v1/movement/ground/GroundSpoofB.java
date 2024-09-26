@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.ground;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GroundSpoofB extends Check {
     public GroundSpoofB(@NotNull TRPlayer player) {
-        super("GroundSpoofB", player);
+        super("Ground (B)", player);
     }
 
     @Override

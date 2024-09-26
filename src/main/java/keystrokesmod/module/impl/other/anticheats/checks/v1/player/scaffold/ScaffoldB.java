@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.scaffolding;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.player.scaffold;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ScaffoldB extends Check {
     public ScaffoldB( @NotNull TRPlayer player) {
-        super("ScaffoldB", player);
+        super("Scaffold (A)", player);
     }
 
     @Override

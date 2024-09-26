@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.speed;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -11,7 +11,7 @@ public class SpeedA extends Check {
     public boolean hasJumped = false;
     public short jumpTick = 0;
     public SpeedA(@NotNull TRPlayer player) {
-        super("SpeedA", player);
+        super("Speed (A)", player);
     }
 
     @Override

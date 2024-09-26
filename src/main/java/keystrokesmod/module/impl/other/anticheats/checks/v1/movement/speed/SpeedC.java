@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.speed;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpeedC extends Check {
     public SpeedC(@NotNull TRPlayer player) {
-        super("SpeedC", player);
+        super("Speed (C)", player);
     }
 
     @Override

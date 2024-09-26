@@ -300,6 +300,7 @@ public class ModuleManager {
         this.addModule(scaffold = new Scaffold());
         this.addModule(tower = new Tower());
         this.addModule(bedDefender = new BedDefender());
+        this.addModule(new TellyHelper());
 
         // exploit
         this.addModule(clientSpoofer = new ClientSpoofer());

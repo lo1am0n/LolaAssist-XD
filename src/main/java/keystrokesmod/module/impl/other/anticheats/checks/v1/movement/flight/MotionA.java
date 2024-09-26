@@ -1,6 +1,5 @@
-package keystrokesmod.module.impl.other.anticheats.checks.movement;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.flight;
 
-import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
 import keystrokesmod.module.impl.other.anticheats.TRPlayer;
 import keystrokesmod.module.impl.other.anticheats.config.AdvancedConfig;
@@ -25,7 +24,7 @@ public class MotionA extends Check {
     private int disableTicks = 0;
 
     public MotionA(@NotNull TRPlayer player) {
-        super("MotionA", player);
+        super("Motion (A)", player);
         IGNORED_BLOCKS.add(Blocks.bed);
         IGNORED_BLOCKS.add(Blocks.slime_block);
 

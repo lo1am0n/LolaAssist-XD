@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.combat;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.combat.hitbox;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HitBoxA extends Check {
     public HitBoxA(@NotNull TRPlayer player) {
-        super("*HitBoxA*", player);
+        super("Hitbox (A)", player);
     }
 
     @Override

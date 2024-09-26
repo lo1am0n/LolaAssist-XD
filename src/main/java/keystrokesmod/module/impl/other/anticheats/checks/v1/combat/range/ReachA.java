@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.combat;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.combat.range;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ReachA extends Check {
     public ReachA(@NotNull TRPlayer player) {
-        super("*ReachA*", player);
+        super("Range (A)", player);
     }
 
     @Override

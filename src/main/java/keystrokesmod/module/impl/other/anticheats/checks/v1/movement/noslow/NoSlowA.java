@@ -1,4 +1,4 @@
-package keystrokesmod.module.impl.other.anticheats.checks.combat;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.movement.noslow;
 
 import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;

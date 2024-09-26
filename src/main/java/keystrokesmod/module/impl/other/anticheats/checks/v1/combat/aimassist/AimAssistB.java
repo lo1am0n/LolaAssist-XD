@@ -1,6 +1,5 @@
-package keystrokesmod.module.impl.other.anticheats.checks.aim;
+package keystrokesmod.module.impl.other.anticheats.checks.v1.combat.aimassist;
 
-import keystrokesmod.module.impl.other.Anticheat;
 import keystrokesmod.module.impl.other.anticheats.Check;
 import keystrokesmod.module.impl.other.anticheats.TRPlayer;
 import keystrokesmod.module.impl.other.anticheats.config.AdvancedConfig;
@@ -9,11 +8,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AimB extends Check {
+public class AimAssistB extends Check {
     public static final Set<Integer> YAW_STEP = new HashSet<>();
     public static final Set<Integer> PITCH_STEP = new HashSet<>();
-    public AimB(@NotNull TRPlayer player) {
-        super("AimB", player);
+    public AimAssistB(@NotNull TRPlayer player) {
+        super("Aim Assist (B)", player);
         YAW_STEP.add(90);
         PITCH_STEP.add(90);
         YAW_STEP.add(135);
@@ -59,6 +58,6 @@ public class AimB extends Check {
 
     @Override
     public boolean isDisabled() {
-        return !Anticheat.getAimCheck().isToggled() || !Anticheat.getExperimentalMode().isToggled();
+        return false;
     }
 }

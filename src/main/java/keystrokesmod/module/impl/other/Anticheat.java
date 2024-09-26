@@ -51,14 +51,14 @@ public class Anticheat extends Module {
     private PlayerManager manager = new PlayerManager();
     public Anticheat() {
         super("Anticheat", category.other);
-        this.registerSetting(new DescriptionSetting("Tries to detect cheaters."));
+        this.registerSetting(new DescriptionSetting("Tries to detect (other) cheaters."));
         this.registerSetting(latency = new SliderSetting("Latency compensation", 600.0, 0.0, 1000.0, 1.0, "ms"));
         this.registerSetting(threshold = new SliderSetting("Movement threshold", 1.0, 0.0, 3.0, 0.01, "blocks"));
         this.registerSetting(disableInLobby = new ButtonSetting("Disable in lobby", true));
         this.registerSetting(checkForSelf = new ButtonSetting("Check for self", true));
         this.registerSetting(checkForTeammates = new ButtonSetting("Check for teammates", true));
         this.registerSetting(vlClearTime = new SliderSetting("VL clear time", 6000, -1, 12000, 1, "ticks"));
-        this.registerSetting(noAlertBuffer = new ButtonSetting("Remove alert buffer", false));
+        this.registerSetting(noAlertBuffer = new ButtonSetting("Remove alert buffer", true));
         this.registerSetting(shouldPing = new ButtonSetting("Should ping", true));
         this.registerSetting(pingSound = new ModeSetting("Ping sound", new String[]{"Note", "Augustus"}, 0, shouldPing::isToggled));
         this.registerSetting(autoReport = new ModeSetting("Auto report", new String[]{"None", "/wdr", "/report"}, 0));
